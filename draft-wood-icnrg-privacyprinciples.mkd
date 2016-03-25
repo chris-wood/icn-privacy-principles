@@ -1,0 +1,137 @@
+---
+title: ICN Privacy Principles
+abbrev: PrivacyPrinciples
+docname: draft-wood-icnrg-privacyprinciples
+date: 2015-10-14
+category: info
+
+ipr: trust200902
+area: General
+workgroup: ICNRG Working Group
+keyword: Internet-Draft
+
+stand_alone: yes
+pi: [toc, sortrefs, symrefs]
+
+author:
+-
+    ins: M. Stapp
+    name: Mark Stapp
+    org: Cisco
+    email: mjs@cisco.com
+-
+    ins: C. A. Wood
+    name: Christopher A. Wood
+    org: PARC, Inc.
+    email: christopher.wood@parc.com
+
+normative:
+    RFC2119:
+    RFC6973:
+    RFC7285:
+
+--- abstract
+
+This document lays out a set of principles that clearly define the privacy
+requirements for ICN in the context of TCP/IP applications.
+
+--- middle
+
+# Introduction
+
+RFC6973 {{RFC6973}} outlines major security and privacy threats and countermeasures
+for networking protocols. It identifies and describes several attacks which can
+be carried out against users, including correlation, identification, secondary
+use (of personal or private information), unauthorized or oblivious disclosure,
+and user exclusion. We refer the reader to {{RFC6973}} for more details about
+these threats.
+
+The authors of this document believe that the ICNRG should share the view of the
+IP community which states that passive and pervasive observation and surveillance
+is an attack on individuals' communication {{RFC7285}}. Consequently, the ICNRG should
+strive to meet or exceed the privacy protections driven by the IETF. Moreover,
+privacy preserving mechanisms should evolve as Internet security threats and standards
+change. This means that ICN should always use best practices for protecting
+the privacy of individuals.
+
+To be specific, ICN communication should use, by default, best practice cryptographic
+methods to ensure privacy and confidentiality. Presently, this means that all communication
+should be protected by forward-secure encryption. We therefore claim that the mechanism
+to bootstrap this type of communication should be a native part of ICN rather
+than add-on protocols analogous to (D)TLS.
+
+In this document we outline several principles for private communication in ICN
+based on accepted best practices to prevent or deter the aforementioned threats.
+We do not specify mechanisms to satisfy these principles since that is still an
+open topic of research in the field.
+
+##  Conventions and Terminology
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in RFC 2119 {{RFC2119}}.
+
+# Privacy Principles
+
+This section outlines a proposed set of privacy principles for ICN architectures.
+These are inspired by recent activities in the IETF to prevent attacks such
+as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.
+
+1. All ICN messages should be encrypted by default.
+
+    - Rationale: Cleartext communication is not best practice.
+
+2. The privacy of ICN messages should rely on forward-secure keys.
+
+    - Rationale: Privacy mechanisms based on long-lived key pairs are not
+    forward-secure are not secure if the private key is compromised. Moreover,
+    long-lived key pairs can be traced to individuals and can lead to correlation
+    and other information leakage in requests and responses. Neither of these are
+    considered best practice.
+
+3. ICN messages should not reveal information about entities involved in the
+production or consumption of data beyond what can be learned from their relative
+location in the network.
+
+    - Rationale: Minimize information leakage and linkage between packets and entities
+    involved in their transport.
+
+4. Clients should always authenticate an endpoint to which personal identification
+information is sent.
+
+    - Rationale: Personal information should never be disclosed to an endpoint
+    (e.g., a router or producer application) that is not authenticated.
+
+5. Application data contained in an ICN message should only be viewable by authenticated
+and authorized parties.
+
+    - Rationale: Applications should not rely on network or link-layer encryption
+    for protection since the network cannot be trusted. End-to-end encryption between
+    the client and endpoint serving content is best practice.
+
+6. Where authentication of clients by servers is necessary (e.g., for access control),
+per-application credentials should be used.
+
+    - Rationale: Compromised user credentials for one application do not lead cause
+    other applications or services to also become compromised.
+
+# A Catalog of Privacy Information
+
+In this section we begin an enumeration of privacy-related information that should
+be considered in the context of the aforementioned principles.
+
+- User- or -host-identifying information.
+
+    Examples include user names, account names (or numbers), email addresses, source
+    or location information, long-lived key names, certificates, or certificate names.
+
+- Application-specific information.
+
+    This includes any information beyond what is necessary to route traffic
+    for a particular application between parties involved.
+
+- Information shared across users.
+
+    Examples include common group keys or content object names.
+
+--- back
