@@ -376,9 +376,10 @@
   <link href="#rfc.toc" rel="Contents"/>
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Conventions and Terminology"/>
-<link href="#rfc.section.2" rel="Chapter" title="2 Privacy Principles"/>
-<link href="#rfc.section.3" rel="Chapter" title="3 A Catalog of Privacy Information"/>
-<link href="#rfc.references" rel="Chapter" title="4 Normative References"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 A Catalog of Privacy Information"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 Privacy Principles"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Privacy in Practice"/>
+<link href="#rfc.references" rel="Chapter" title="5 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -388,8 +389,8 @@
   <meta name="dct.creator" content="Stapp, M. and C. Wood" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-wood-icnrg-privacyprinciples" />
   <meta name="dct.issued" scheme="ISO8601" content="2015-10-14" />
-  <meta name="dct.abstract" content="This document lays out a set of principles that clearly define the privacy requirements for ICN in the context of TCP/IP applications." />
-  <meta name="description" content="This document lays out a set of principles that clearly define the privacy requirements for ICN in the context of TCP/IP applications." />
+  <meta name="dct.abstract" content="This document lays out a set of principles that define the privacy requirements for ICN in the context of TCP/IP applications." />
+  <meta name="description" content="This document lays out a set of principles that define the privacy requirements for ICN in the context of TCP/IP applications." />
 
 </head>
 
@@ -429,7 +430,7 @@
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
 </h1>
-<p>This document lays out a set of principles that clearly define the privacy requirements for ICN in the context of TCP/IP applications.</p>
+<p>This document lays out a set of principles that define the privacy requirements for ICN in the context of TCP/IP applications.</p>
 <h1 id="rfc.status">
   <a href="#rfc.status">Status of This Memo</a>
 </h1>
@@ -450,9 +451,10 @@
 
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
 <ul><li>1.1.   <a href="#rfc.section.1.1">Conventions and Terminology</a></li>
-</ul><li>2.   <a href="#rfc.section.2">Privacy Principles</a></li>
-<li>3.   <a href="#rfc.section.3">A Catalog of Privacy Information</a></li>
-<li>4.   <a href="#rfc.references">Normative References</a></li>
+</ul><li>2.   <a href="#rfc.section.2">A Catalog of Privacy Information</a></li>
+<li>3.   <a href="#rfc.section.3">Privacy Principles</a></li>
+<li>4.   <a href="#rfc.section.4">Privacy in Practice</a></li>
+<li>5.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
@@ -465,20 +467,8 @@
 <p id="rfc.section.1.p.4">In this document we outline several principles for private communication in ICN based on accepted best practices to prevent or deter the aforementioned threats.  We do not specify mechanisms to satisfy these principles since that is still an open topic of research in the field.</p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-and-terminology" id="conventions-and-terminology">Conventions and Terminology</a></h1>
 <p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in RFC 2119 <a href="#RFC2119">[RFC2119]</a>.</p>
-<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#privacy-principles" id="privacy-principles">Privacy Principles</a></h1>
-<p id="rfc.section.2.p.1">This section outlines a proposed set of privacy principles for ICN architectures.  These are inspired by recent activities in the IETF to prevent attacks such as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.</p>
-<p/>
-
-<ol>
-  <li>All ICN messages should be encrypted by default.  <ul><li>Rationale: Cleartext communication is not best practice.</li></ul></li>
-  <li>The privacy of ICN messages should rely on forward-secure keys.  <ul><li>Rationale: Privacy mechanisms based on long-lived key pairs are not forward-secure are not secure if the private key is compromised. Moreover, long-lived key pairs can be traced to individuals and can lead to correlation and other information leakage in requests and responses. Neither of these are considered best practice.</li></ul></li>
-  <li>ICN messages should not reveal information about entities involved in the production or consumption of data beyond what can be learned from their relative location in the network.  <ul><li>Rationale: Minimize information leakage and linkage between packets and entities involved in their transport.</li></ul></li>
-  <li>Clients should always authenticate an endpoint to which personal identification information is sent.  <ul><li>Rationale: Personal information should never be disclosed to an endpoint (e.g., a router or producer application) that is not authenticated.</li></ul></li>
-  <li>Application data contained in an ICN message should only be viewable by authenticated and authorized parties.  <ul><li>Rationale: Applications should not rely on network or link-layer encryption for protection since the network cannot be trusted. End-to-end encryption between the client and endpoint serving content is best practice.</li></ul></li>
-  <li>Where authentication of clients by servers is necessary (e.g., for access control), per-application credentials should be used.  <ul><li>Rationale: Compromised user credentials for one application do not lead cause other applications or services to also become compromised.</li></ul></li>
-</ol>
-<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#a-catalog-of-privacy-information" id="a-catalog-of-privacy-information">A Catalog of Privacy Information</a></h1>
-<p id="rfc.section.3.p.1">In this section we begin an enumeration of privacy-related information that should be considered in the context of the aforementioned principles.</p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#a-catalog-of-privacy-information" id="a-catalog-of-privacy-information">A Catalog of Privacy Information</a></h1>
+<p id="rfc.section.2.p.1">In this section we begin an enumeration of privacy-related information that should be considered in the context of the aforementioned principles.</p>
 <p/>
 
 <ul>
@@ -486,7 +476,31 @@
   <li>Application-specific information.  <br/><br/> This includes any information beyond what is necessary to route traffic for a particular application between parties involved.</li>
   <li>Information shared across users.  <br/><br/> Examples include common group keys or content object names.</li>
 </ul>
-<h1 id="rfc.references"><a href="#rfc.references">4.</a> Normative References</h1>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#privacy-principles" id="privacy-principles">Privacy Principles</a></h1>
+<p id="rfc.section.3.p.1">This section outlines a proposed set of privacy principles for ICN architectures.  These are inspired by recent activities in the IETF to prevent attacks such as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.</p>
+<p/>
+
+<ol>
+  <li>All ICN messages should be encrypted by default.  <ul><li>Rationale: Cleartext communication is not best practice.</li></ul></li>
+  <li>The privacy of ICN messages should rely on forward-secure keys.  <ul><li>Rationale: Privacy mechanisms based on long-lived key pairs are not forward-secure, i.e., they are not secure if the private key is compromised. Moreover, long-lived key pairs can be traced to individuals and can lead to correlation and other information leakage in requests and responses. Neither of these are considered best practice.</li></ul></li>
+  <li>ICN messages should not reveal information about entities involved in the production or consumption of data beyond what can be learned from their relative location in the network.  <ul><li>Rationale: Minimize information leakage and linkage between packets and entities involved in their transport.</li></ul></li>
+  <li>Clients should always authenticate an endpoint to which personal identification information is sent.  <ul><li>Rationale: Personal information should never be disclosed to an endpoint (e.g., a router or producer application) that is not authenticated.</li></ul></li>
+  <li>Application data contained in an ICN message should only be viewable by authenticated and authorized parties.  <ul><li>Rationale: Applications should not rely on network or link-layer encryption for protection since the network cannot be trusted. End-to-end encryption between the client and endpoint serving content is best practice.</li></ul></li>
+  <li>Where authentication of clients by servers is necessary (e.g., for access control), per-application credentials should be used.  <ul><li>Rationale: Compromised user credentials for one application does not compromise other applications or services.</li></ul></li>
+</ol>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#privacy-in-practice" id="privacy-in-practice">Privacy in Practice</a></h1>
+<p id="rfc.section.4.p.1">In this section we describe the practical implications that come from implementing the privacy principles outlined in the previous section.</p>
+<p/>
+
+<ol>
+  <li>If encryption is enabled by default then only the users who possess the keys are able to view or consume the data. This restricts the benefits of caching to those consumers who are in possession of the correct key(s). For example, a content may be encrypted such that only a subset of users of a particular application can access it.</li>
+  <li>There must be some negotiation between endpoints transferring data, whether the endpoint is a producer or replica. This negotiation must use fresh randomness to create forward-secure keys used to encrypt the traffic. A native protocol must exist to accomplish this negotiation as a prelude and necessary requirement to exchange any application data.</li>
+  <li>Application information must be contained inside an envelope protected using some form of encryption that satisfies the property #2. This does not mean that content objects cannot carry signatures or public keys, for example. It simply means that such information must not be exposed in the clear as it moves through the network.</li>
+  <li>Clients should never send application data to an entity or endpoint which has not been authenticated. Session negotiation should allow endpoint (and in some cases mutual) authentication.</li>
+  <li>The observable contents of a message convey no application information. This means that names no longer refer to objects but rather to services from which content can be produced. This is analogous to the TLS+TCP/IP model wherein encrypted packets are sent between a client and some producer POP or CDN. All application data is contained in an encrypted envelope.</li>
+  <li>User credentials should not be used across applications. Every consumer should possess and employ a unique set of credentials for every application they use.</li>
+</ol>
+<h1 id="rfc.references"><a href="#rfc.references">5.</a> Normative References</h1>
 <table>
   <tbody>
     <tr>

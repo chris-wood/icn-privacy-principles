@@ -12,7 +12,7 @@
 <rfc ipr="trust200902" docName="draft-wood-icnrg-privacyprinciples" category="info">
 
   <front>
-    <title abbrev="PrivacyPrinciples">ICN Privacy Principles</title>
+    <title abbrev="ICN Privacy Principles">ICN Privacy Principles</title>
 
     <author initials="M." surname="Stapp" fullname="Mark Stapp">
       <organization>Cisco</organization>
@@ -36,8 +36,8 @@
     <abstract>
 
 
-<t>This document lays out a set of principles that clearly define the privacy
-requirements for ICN in the context of TCP/IP applications.</t>
+<t>This document lays out a set of principles that define the privacy requirements for 
+ICN in the context of TCP/IP applications.</t>
 
 
 
@@ -85,6 +85,23 @@ document are to be interpreted as described in RFC 2119 <xref target="RFC2119"/>
 
 </section>
 </section>
+<section anchor="a-catalog-of-privacy-information" title="A Catalog of Privacy Information">
+
+<t>In this section we begin an enumeration of privacy-related information that should
+be considered in the context of the aforementioned principles.</t>
+
+<t><list style="symbols">
+  <t>User- or -host-identifying information.  <vspace blankLines='1'/>
+Examples include user names, account names (or numbers), email addresses, source
+  or location information, long-lived key names, certificates, or certificate names.</t>
+  <t>Application-specific information.  <vspace blankLines='1'/>
+This includes any information beyond what is necessary to route traffic
+  for a particular application between parties involved.</t>
+  <t>Information shared across users.  <vspace blankLines='1'/>
+Examples include common group keys or content object names.</t>
+</list></t>
+
+</section>
 <section anchor="privacy-principles" title="Privacy Principles">
 
 <t>This section outlines a proposed set of privacy principles for ICN architectures.
@@ -97,7 +114,7 @@ as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.</t>
     </list></t>
   <t>The privacy of ICN messages should rely on forward-secure keys.  <list style="symbols">
       <t>Rationale: Privacy mechanisms based on long-lived key pairs are not
- forward-secure are not secure if the private key is compromised. Moreover,
+ forward-secure, i.e., they are not secure if the private key is compromised. Moreover,
  long-lived key pairs can be traced to individuals and can lead to correlation
  and other information leakage in requests and responses. Neither of these are
  considered best practice.</t>
@@ -121,26 +138,38 @@ and authorized parties.  <list style="symbols">
     </list></t>
   <t>Where authentication of clients by servers is necessary (e.g., for access control),
 per-application credentials should be used.  <list style="symbols">
-      <t>Rationale: Compromised user credentials for one application do not lead cause
- other applications or services to also become compromised.</t>
+      <t>Rationale: Compromised user credentials for one application does not compromise
+ other applications or services.</t>
     </list></t>
 </list></t>
 
 </section>
-<section anchor="a-catalog-of-privacy-information" title="A Catalog of Privacy Information">
+<section anchor="privacy-in-practice" title="Privacy in Practice">
 
-<t>In this section we begin an enumeration of privacy-related information that should
-be considered in the context of the aforementioned principles.</t>
+<t>In this section we describe the practical implications that come from implementing 
+the privacy principles outlined in the previous section.</t>
 
-<t><list style="symbols">
-  <t>User- or -host-identifying information.  <vspace blankLines='1'/>
-Examples include user names, account names (or numbers), email addresses, source
-  or location information, long-lived key names, certificates, or certificate names.</t>
-  <t>Application-specific information.  <vspace blankLines='1'/>
-This includes any information beyond what is necessary to route traffic
-  for a particular application between parties involved.</t>
-  <t>Information shared across users.  <vspace blankLines='1'/>
-Examples include common group keys or content object names.</t>
+<t><list style="numbers">
+  <t>If encryption is enabled by default then only the users who possess the keys are able
+to view or consume the data. This restricts the benefits of caching to those consumers who 
+are in possession of the correct key(s). For example, a content may be encrypted such that
+only a subset of users of a particular application can access it.</t>
+  <t>There must be some negotiation between endpoints transferring data, whether the endpoint
+is a producer or replica. This negotiation must use fresh randomness to create forward-secure
+keys used to encrypt the traffic. A native protocol must exist to accomplish this negotiation
+as a prelude and necessary requirement to exchange any application data.</t>
+  <t>Application information must be contained inside an envelope protected using some form
+of encryption that satisfies the property #2. This does not mean that content objects cannot
+carry signatures or public keys, for example. It simply means that such information must not be
+exposed in the clear as it moves through the network.</t>
+  <t>Clients should never send application data to an entity or endpoint which has not been 
+authenticated. Session negotiation should allow endpoint (and in some cases mutual) authentication.</t>
+  <t>The observable contents of a message convey no application information. This means that names
+no longer refer to objects but rather to services from which content can be produced. This
+is analogous to the TLS+TCP/IP model wherein encrypted packets are sent between a client and some
+producer POP or CDN. All application data is contained in an encrypted envelope.</t>
+  <t>User credentials should not be used across applications. Every consumer should possess and employ
+a unique set of credentials for every application they use.</t>
 </list></t>
 
 </section>

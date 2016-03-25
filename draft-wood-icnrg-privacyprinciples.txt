@@ -14,8 +14,8 @@ Expires: April 16, 2016                                       PARC, Inc.
 
 Abstract
 
-   This document lays out a set of principles that clearly define the
-   privacy requirements for ICN in the context of TCP/IP applications.
+   This document lays out a set of principles that define the privacy
+   requirements for ICN in the context of TCP/IP applications.
 
 Status of This Memo
 
@@ -55,17 +55,18 @@ Copyright Notice
 
 Stapp & Wood             Expires April 16, 2016                 [Page 1]
 
-Internet-Draft              PrivacyPrinciples               October 2015
+Internet-Draft           ICN Privacy Principles             October 2015
 
 
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Conventions and Terminology . . . . . . . . . . . . . . .   2
-   2.  Privacy Principles  . . . . . . . . . . . . . . . . . . . . .   3
-   3.  A Catalog of Privacy Information  . . . . . . . . . . . . . .   4
-   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
+   2.  A Catalog of Privacy Information  . . . . . . . . . . . . . .   3
+   3.  Privacy Principles  . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Privacy in Practice . . . . . . . . . . . . . . . . . . . . .   4
+   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
 
 1.  Introduction
 
@@ -108,69 +109,12 @@ Table of Contents
 
 
 
-
 Stapp & Wood             Expires April 16, 2016                 [Page 2]
 
-Internet-Draft              PrivacyPrinciples               October 2015
+Internet-Draft           ICN Privacy Principles             October 2015
 
 
-2.  Privacy Principles
-
-   This section outlines a proposed set of privacy principles for ICN
-   architectures.  These are inspired by recent activities in the IETF
-   to prevent attacks such as mass surveillance in a plethora of
-   Internet protocols, e.g., DNS and TCP.
-
-   1.  All ICN messages should be encrypted by default.
-
-       *  Rationale: Cleartext communication is not best practice.
-
-   2.  The privacy of ICN messages should rely on forward-secure keys.
-
-       *  Rationale: Privacy mechanisms based on long-lived key pairs
-          are not forward-secure are not secure if the private key is
-          compromised.  Moreover, long-lived key pairs can be traced to
-          individuals and can lead to correlation and other information
-          leakage in requests and responses.  Neither of these are
-          considered best practice.
-
-   3.  ICN messages should not reveal information about entities
-       involved in the production or consumption of data beyond what can
-       be learned from their relative location in the network.
-
-       *  Rationale: Minimize information leakage and linkage between
-          packets and entities involved in their transport.
-
-   4.  Clients should always authenticate an endpoint to which personal
-       identification information is sent.
-
-       *  Rationale: Personal information should never be disclosed to
-          an endpoint (e.g., a router or producer application) that is
-          not authenticated.
-
-   5.  Application data contained in an ICN message should only be
-       viewable by authenticated and authorized parties.
-
-       *  Rationale: Applications should not rely on network or link-
-          layer encryption for protection since the network cannot be
-          trusted.  End-to-end encryption between the client and
-          endpoint serving content is best practice.
-
-   6.  Where authentication of clients by servers is necessary (e.g.,
-       for access control), per-application credentials should be used.
-
-       *  Rationale: Compromised user credentials for one application do
-          not lead cause other applications or services to also become
-          compromised.
-
-
-
-Stapp & Wood             Expires April 16, 2016                 [Page 3]
-
-Internet-Draft              PrivacyPrinciples               October 2015
-
-
-3.  A Catalog of Privacy Information
+2.  A Catalog of Privacy Information
 
    In this section we begin an enumeration of privacy-related
    information that should be considered in the context of the
@@ -191,7 +135,113 @@ Internet-Draft              PrivacyPrinciples               October 2015
 
       Examples include common group keys or content object names.
 
-4.  Normative References
+3.  Privacy Principles
+
+   This section outlines a proposed set of privacy principles for ICN
+   architectures.  These are inspired by recent activities in the IETF
+   to prevent attacks such as mass surveillance in a plethora of
+   Internet protocols, e.g., DNS and TCP.
+
+   1.  All ICN messages should be encrypted by default.
+
+       *  Rationale: Cleartext communication is not best practice.
+
+   2.  The privacy of ICN messages should rely on forward-secure keys.
+
+       *  Rationale: Privacy mechanisms based on long-lived key pairs
+          are not forward-secure, i.e., they are not secure if the
+          private key is compromised.  Moreover, long-lived key pairs
+          can be traced to individuals and can lead to correlation and
+          other information leakage in requests and responses.  Neither
+          of these are considered best practice.
+
+   3.  ICN messages should not reveal information about entities
+       involved in the production or consumption of data beyond what can
+       be learned from their relative location in the network.
+
+       *  Rationale: Minimize information leakage and linkage between
+          packets and entities involved in their transport.
+
+
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 3]
+
+Internet-Draft           ICN Privacy Principles             October 2015
+
+
+   4.  Clients should always authenticate an endpoint to which personal
+       identification information is sent.
+
+       *  Rationale: Personal information should never be disclosed to
+          an endpoint (e.g., a router or producer application) that is
+          not authenticated.
+
+   5.  Application data contained in an ICN message should only be
+       viewable by authenticated and authorized parties.
+
+       *  Rationale: Applications should not rely on network or link-
+          layer encryption for protection since the network cannot be
+          trusted.  End-to-end encryption between the client and
+          endpoint serving content is best practice.
+
+   6.  Where authentication of clients by servers is necessary (e.g.,
+       for access control), per-application credentials should be used.
+
+       *  Rationale: Compromised user credentials for one application
+          does not compromise other applications or services.
+
+4.  Privacy in Practice
+
+   In this section we describe the practical implications that come from
+   implementing the privacy principles outlined in the previous section.
+
+   1.  If encryption is enabled by default then only the users who
+       possess the keys are able to view or consume the data.  This
+       restricts the benefits of caching to those consumers who are in
+       possession of the correct key(s).  For example, a content may be
+       encrypted such that only a subset of users of a particular
+       application can access it.
+
+   2.  There must be some negotiation between endpoints transferring
+       data, whether the endpoint is a producer or replica.  This
+       negotiation must use fresh randomness to create forward-secure
+       keys used to encrypt the traffic.  A native protocol must exist
+       to accomplish this negotiation as a prelude and necessary
+       requirement to exchange any application data.
+
+   3.  Application information must be contained inside an envelope
+       protected using some form of encryption that satisfies the
+       property #2.  This does not mean that content objects cannot
+       carry signatures or public keys, for example.  It simply means
+       that such information must not be exposed in the clear as it
+       moves through the network.
+
+
+
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 4]
+
+Internet-Draft           ICN Privacy Principles             October 2015
+
+
+   4.  Clients should never send application data to an entity or
+       endpoint which has not been authenticated.  Session negotiation
+       should allow endpoint (and in some cases mutual) authentication.
+
+   5.  The observable contents of a message convey no application
+       information.  This means that names no longer refer to objects
+       but rather to services from which content can be produced.  This
+       is analogous to the TLS+TCP/IP model wherein encrypted packets
+       are sent between a client and some producer POP or CDN.  All
+       application data is contained in an encrypted envelope.
+
+   6.  User credentials should not be used across applications.  Every
+       consumer should possess and employ a unique set of credentials
+       for every application they use.
+
+5.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -218,60 +268,10 @@ Authors' Addresses
    Email: mjs@cisco.com
 
 
-
-
-
-Stapp & Wood             Expires April 16, 2016                 [Page 4]
-
-Internet-Draft              PrivacyPrinciples               October 2015
-
-
    Christopher A. Wood
    PARC, Inc.
 
    Email: christopher.wood@parc.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
