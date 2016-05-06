@@ -37,7 +37,7 @@
 
 
 <t>This document lays out a set of principles that define the privacy requirements for 
-ICN in the context of TCP/IP applications.</t>
+ICN applications.</t>
 
 
 
@@ -85,10 +85,27 @@ document are to be interpreted as described in RFC 2119 <xref target="RFC2119"/>
 
 </section>
 </section>
-<section anchor="a-catalog-of-privacy-information" title="A Catalog of Privacy Information">
+<section anchor="privacy-notions" title="Privacy Notions">
+
+<t>Privacy has no clear definition. Rather, as RFC6973 <xref target="RFC6973"/> describes, it is a spectrum
+of different threats against a user and their data. This document describes several notions
+of privacy with respect to specific threats, e.g., information disclosure and correlation.
+If we are to outline privacy principles for ICN then we must too have similar notions of
+privacy. To that end, the following list enumerates and describes types of privacy with which 
+we are concerned.</t>
+
+<t><list style="numbers">
+  <t>Data privacy: application data in an ICN message, e.g., the content object payload, is not disclosed or leaked to unauthorized persons.</t>
+  <t>Transport privacy: the entire contents of an ICN message are not disclosed or leaked to forwarders (i.e., this information is only visible to the consumer and producer).</t>
+  <t>Request (lookup) privacy: ICN <spanx style="emph">requests</spanx> are not disclosed or leaked to anyone but the originator of the request.</t>
+  <t>Application privacy: Information about an application is not leaked to unauthorized persons through network activity.</t>
+</list></t>
+
+</section>
+<section anchor="a-catalog-of-privacy-sensitive-information" title="A Catalog of Privacy-Sensitive Information">
 
 <t>In this section we begin an enumeration of privacy-related information that should
-be considered in the context of the aforementioned principles.</t>
+be considered in the context of our principles (detailed in the following section).</t>
 
 <t><list style="symbols">
   <t>User- or -host-identifying information.  <vspace blankLines='1'/>
@@ -99,14 +116,18 @@ This includes any information beyond what is necessary to route traffic
   for a particular application between parties involved.</t>
   <t>Information shared across users.  <vspace blankLines='1'/>
 Examples include common group keys or content object names.</t>
+  <t>Metadata collected from network traffic.  <vspace blankLines='1'/>
+Examples include packet headers and timing information.</t>
 </list></t>
 
 </section>
-<section anchor="privacy-principles" title="Privacy Principles">
+<section anchor="icn-privacy-principles" title="ICN Privacy Principles">
 
 <t>This section outlines a proposed set of privacy principles for ICN architectures.
 These are inspired by recent activities in the IETF to prevent attacks such
-as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.</t>
+as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.
+These principles are intended to be necessary, but not sufficient, conditions for 
+data, transport, and application privacy.</t>
 
 <t><list style="numbers">
   <t>All ICN messages should be encrypted by default.  <list style="symbols">
@@ -119,15 +140,16 @@ as mass surveillance in a plethora of Internet protocols, e.g., DNS and TCP.</t>
  and other information leakage in requests and responses. Neither of these are
  considered best practice.</t>
     </list></t>
-  <t>ICN messages should not reveal information about entities involved in the
-production or consumption of data beyond what can be learned from their relative
+  <t>ICN messages should not reveal information about the data exchanged or entities involved 
+in the production or consumption of data beyond what can be learned from their relative
 location in the network.  <list style="symbols">
       <t>Rationale: Minimize information leakage and linkage between packets and entities
- involved in their transport.</t>
+ involved in their transport. Moreover, this is to prevent revealing information about the 
+ parties involved in a data exchange through their names.</t>
     </list></t>
   <t>Clients should always authenticate an endpoint to which personal identification
 information is sent.  <list style="symbols">
-      <t>Rationale: Personal information should never be disclosed to an endpoint
+      <t>Rationale: Privacy-sensitive information should never be disclosed to an endpoint
  (e.g., a router or producer application) that is not authenticated.</t>
     </list></t>
   <t>Application data contained in an ICN message should only be viewable by authenticated

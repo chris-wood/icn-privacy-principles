@@ -15,7 +15,7 @@ Expires: April 16, 2016                                       PARC, Inc.
 Abstract
 
    This document lays out a set of principles that define the privacy
-   requirements for ICN in the context of TCP/IP applications.
+   requirements for ICN applications.
 
 Status of This Memo
 
@@ -62,11 +62,12 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Conventions and Terminology . . . . . . . . . . . . . . .   2
-   2.  A Catalog of Privacy Information  . . . . . . . . . . . . . .   3
-   3.  Privacy Principles  . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Privacy in Practice . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
+   2.  Privacy Notions . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  A Catalog of Privacy-Sensitive Information  . . . . . . . . .   3
+   4.  ICN Privacy Principles  . . . . . . . . . . . . . . . . . . .   4
+   5.  Privacy in Practice . . . . . . . . . . . . . . . . . . . . .   5
+   6.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
@@ -104,8 +105,7 @@ Table of Contents
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in RFC
-   2119 [RFC2119].
+
 
 
 
@@ -114,11 +114,39 @@ Stapp & Wood             Expires April 16, 2016                 [Page 2]
 Internet-Draft           ICN Privacy Principles             October 2015
 
 
-2.  A Catalog of Privacy Information
+   "OPTIONAL" in this document are to be interpreted as described in RFC
+   2119 [RFC2119].
+
+2.  Privacy Notions
+
+   Privacy has no clear definition.  Rather, as RFC6973 [RFC6973]
+   describes, it is a spectrum of different threats against a user and
+   their data.  This document describes several notions of privacy with
+   respect to specific threats, e.g., information disclosure and
+   correlation.  If we are to outline privacy principles for ICN then we
+   must too have similar notions of privacy.  To that end, the following
+   list enumerates and describes types of privacy with which we are
+   concerned.
+
+   1.  Data privacy: application data in an ICN message, e.g., the
+       content object payload, is not disclosed or leaked to
+       unauthorized persons.
+
+   2.  Transport privacy: the entire contents of an ICN message are not
+       disclosed or leaked to forwarders (i.e., this information is only
+       visible to the consumer and producer).
+
+   3.  Request (lookup) privacy: ICN _requests_ are not disclosed or
+       leaked to anyone but the originator of the request.
+
+   4.  Application privacy: Information about an application is not
+       leaked to unauthorized persons through network activity.
+
+3.  A Catalog of Privacy-Sensitive Information
 
    In this section we begin an enumeration of privacy-related
-   information that should be considered in the context of the
-   aforementioned principles.
+   information that should be considered in the context of our
+   principles (detailed in the following section).
 
    o  User- or -host-identifying information.
 
@@ -135,12 +163,25 @@ Internet-Draft           ICN Privacy Principles             October 2015
 
       Examples include common group keys or content object names.
 
-3.  Privacy Principles
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 3]
+
+Internet-Draft           ICN Privacy Principles             October 2015
+
+
+   o  Metadata collected from network traffic.
+
+      Examples include packet headers and timing information.
+
+4.  ICN Privacy Principles
 
    This section outlines a proposed set of privacy principles for ICN
    architectures.  These are inspired by recent activities in the IETF
    to prevent attacks such as mass surveillance in a plethora of
-   Internet protocols, e.g., DNS and TCP.
+   Internet protocols, e.g., DNS and TCP.  These principles are intended
+   to be necessary, but not sufficient, conditions for data, transport,
+   and application privacy.
 
    1.  All ICN messages should be encrypted by default.
 
@@ -155,33 +196,36 @@ Internet-Draft           ICN Privacy Principles             October 2015
           other information leakage in requests and responses.  Neither
           of these are considered best practice.
 
-   3.  ICN messages should not reveal information about entities
-       involved in the production or consumption of data beyond what can
-       be learned from their relative location in the network.
+   3.  ICN messages should not reveal information about the data
+       exchanged or entities involved in the production or consumption
+       of data beyond what can be learned from their relative location
+       in the network.
 
        *  Rationale: Minimize information leakage and linkage between
-          packets and entities involved in their transport.
-
-
-
-
-Stapp & Wood             Expires April 16, 2016                 [Page 3]
-
-Internet-Draft           ICN Privacy Principles             October 2015
-
+          packets and entities involved in their transport.  Moreover,
+          this is to prevent revealing information about the parties
+          involved in a data exchange through their names.
 
    4.  Clients should always authenticate an endpoint to which personal
        identification information is sent.
 
-       *  Rationale: Personal information should never be disclosed to
-          an endpoint (e.g., a router or producer application) that is
-          not authenticated.
+       *  Rationale: Privacy-sensitive information should never be
+          disclosed to an endpoint (e.g., a router or producer
+          application) that is not authenticated.
 
    5.  Application data contained in an ICN message should only be
        viewable by authenticated and authorized parties.
 
        *  Rationale: Applications should not rely on network or link-
           layer encryption for protection since the network cannot be
+
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 4]
+
+Internet-Draft           ICN Privacy Principles             October 2015
+
+
           trusted.  End-to-end encryption between the client and
           endpoint serving content is best practice.
 
@@ -191,7 +235,7 @@ Internet-Draft           ICN Privacy Principles             October 2015
        *  Rationale: Compromised user credentials for one application
           does not compromise other applications or services.
 
-4.  Privacy in Practice
+5.  Privacy in Practice
 
    In this section we describe the practical implications that come from
    implementing the privacy principles outlined in the previous section.
@@ -217,15 +261,6 @@ Internet-Draft           ICN Privacy Principles             October 2015
        that such information must not be exposed in the clear as it
        moves through the network.
 
-
-
-
-
-Stapp & Wood             Expires April 16, 2016                 [Page 4]
-
-Internet-Draft           ICN Privacy Principles             October 2015
-
-
    4.  Clients should never send application data to an entity or
        endpoint which has not been authenticated.  Session negotiation
        should allow endpoint (and in some cases mutual) authentication.
@@ -237,11 +272,21 @@ Internet-Draft           ICN Privacy Principles             October 2015
        are sent between a client and some producer POP or CDN.  All
        application data is contained in an encrypted envelope.
 
+
+
+
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 5]
+
+Internet-Draft           ICN Privacy Principles             October 2015
+
+
    6.  User credentials should not be used across applications.  Every
        consumer should possess and employ a unique set of credentials
        for every application they use.
 
-5.  Normative References
+6.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -277,4 +322,15 @@ Authors' Addresses
 
 
 
-Stapp & Wood             Expires April 16, 2016                 [Page 5]
+
+
+
+
+
+
+
+
+
+
+
+Stapp & Wood             Expires April 16, 2016                 [Page 6]
