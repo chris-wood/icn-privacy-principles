@@ -265,6 +265,33 @@ a unique set of credentials for every application they use.</t>
 
 
 
+<section anchor="data-correlation-and-access-pattern-problems" title="Data Correlation and Access Pattern Problems">
+
+<t>One of the fundamental problems with vanilla request-based ICN architectures is that
+an on-path or eavesdropping adversary can learn when different consumers
+request the same data by virtue of the fact that two requests for the same data
+will carry the same locator and identifier information. As a result, the access
+patterns of individual and groups of users are leaked. Hiding this information
+is the main motivation for cryptographic algorithms such as Oblivious Ram <xref target="ORAM"/>. 
+The goal of ORAM structures is to provide cryptographic guarantees that the
+access patterns of a client to some server remain hidden. However effective, ORAM
+structures remain to be expensive in terms of computation and bandwidth. More lightweight
+approaches, such as those that rely on searchable encryption schemes (SSE) <xref target="SSE"/> exist. 
+The work of <xref target="_1"/> showed how to a modicum of a priori knowledge about the encrypted
+data set can be used to break SSE techniques to recover sensitive information. 
+Fortunately, the SSE paradigm does not accurately model the ICN request-response paradigm 
+since the responses, not the requests, requests are encrypted. In fact, the ICN
+problem is worse: the access patterns must necessarily be revealed in normal
+communications.</t>
+
+<!--
+1: https://www.internetsociety.org/sites/default/files/06_1.pdf
+2: http://www.cc.gatech.edu/people/home/santosh/papers/asplos2004.pdf
+3: http://www.cs.berkeley.edu/~dawnsong/papers/se.pdf
+-->
+
+</section>
+
 
   </back>
 </rfc>

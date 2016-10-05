@@ -61,12 +61,13 @@ Internet-Draft           ICN Privacy Principles             October 2015
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Conventions and Terminology . . . . . . . . . . . . . . .   2
+     1.1.  Conventions and Terminology . . . . . . . . . . . . . . .   3
    2.  Privacy Notions . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  A Catalog of Privacy-Sensitive Information  . . . . . . . . .   3
    4.  ICN Privacy Principles  . . . . . . . . . . . . . . . . . . .   4
    5.  Privacy in Practice . . . . . . . . . . . . . . . . . . . . .   5
    6.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
+   Appendix A.  Problems with Correlation  . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
@@ -101,10 +102,9 @@ Table of Contents
    satisfy these principles since that is still an open topic of
    research in the field.
 
-1.1.  Conventions and Terminology
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+
+
 
 
 
@@ -114,6 +114,10 @@ Stapp & Wood             Expires April 16, 2016                 [Page 2]
 Internet-Draft           ICN Privacy Principles             October 2015
 
 
+1.1.  Conventions and Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in RFC
    2119 [RFC2119].
 
@@ -159,16 +163,16 @@ Internet-Draft           ICN Privacy Principles             October 2015
       This includes any information beyond what is necessary to route
       traffic for a particular application between parties involved.
 
-   o  Information shared across users.
-
-      Examples include common group keys or content object names.
-
 
 
 Stapp & Wood             Expires April 16, 2016                 [Page 3]
 
 Internet-Draft           ICN Privacy Principles             October 2015
 
+
+   o  Information shared across users.
+
+      Examples include common group keys or content object names.
 
    o  Metadata collected from network traffic.
 
@@ -213,11 +217,7 @@ Internet-Draft           ICN Privacy Principles             October 2015
           disclosed to an endpoint (e.g., a router or producer
           application) that is not authenticated.
 
-   5.  Application data contained in an ICN message should only be
-       viewable by authenticated and authorized parties.
 
-       *  Rationale: Applications should not rely on network or link-
-          layer encryption for protection since the network cannot be
 
 
 
@@ -226,6 +226,11 @@ Stapp & Wood             Expires April 16, 2016                 [Page 4]
 Internet-Draft           ICN Privacy Principles             October 2015
 
 
+   5.  Application data contained in an ICN message should only be
+       viewable by authenticated and authorized parties.
+
+       *  Rationale: Applications should not rely on network or link-
+          layer encryption for protection since the network cannot be
           trusted.  End-to-end encryption between the client and
           endpoint serving content is best practice.
 
@@ -269,11 +274,6 @@ Internet-Draft           ICN Privacy Principles             October 2015
        information.  This means that names no longer refer to objects
        but rather to services from which content can be produced.  This
        is analogous to the TLS+TCP/IP model wherein encrypted packets
-       are sent between a client and some producer POP or CDN.  All
-       application data is contained in an encrypted envelope.
-
-
-
 
 
 
@@ -281,6 +281,9 @@ Stapp & Wood             Expires April 16, 2016                 [Page 5]
 
 Internet-Draft           ICN Privacy Principles             October 2015
 
+
+       are sent between a client and some producer POP or CDN.  All
+       application data is contained in an encrypted envelope.
 
    6.  User credentials should not be used across applications.  Every
        consumer should possess and employ a unique set of credentials
@@ -305,6 +308,10 @@ Internet-Draft           ICN Privacy Principles             October 2015
               RFC 7285, DOI 10.17487/RFC7285, September 2014,
               <http://www.rfc-editor.org/info/rfc7285>.
 
+Appendix A.  Problems with Correlation
+
+   o  https://www.w3.org/2014/strint/papers/41.pdf
+
 Authors' Addresses
 
    Mark Stapp
@@ -317,13 +324,6 @@ Authors' Addresses
    PARC, Inc.
 
    Email: christopher.wood@parc.com
-
-
-
-
-
-
-
 
 
 
